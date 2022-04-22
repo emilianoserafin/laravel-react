@@ -30,7 +30,7 @@ Route::get('/', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::inertia('/dashboard', 'Dashboard')->name('dashboard');
+    Route::inertia('/CustomerDashboard', 'CustomerDashboard')->name('CustomerDashboard');
 
     Route::get("/redirectAuthenticatedUsers", [RedirectAuthenticatedUsersController::class, "home"]);
 
