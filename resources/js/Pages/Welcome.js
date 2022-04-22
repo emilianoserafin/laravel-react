@@ -7,7 +7,6 @@ export default function Welcome(props) {
     return (
         <>
             <Head title="Welcome" />
-
                 <Navbar className='justify-start'>
                     <div className='flex ml-auto pr-3'>
                             <ResponsiveNavLink href={route('login')} className="text-sm text-gray-700 underline">
