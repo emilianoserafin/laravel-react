@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\Auth\RedirectAuthenticatedUsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +25,24 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::inertia('/dashboard', 'Dashboard')->name('dashboard');
+
+    Route::get("/redirectAuthenticatedUsers", [RedirectAuthenticatedUsersController::class, "home"]);
+
+    Route::group(['middleware' => 'checkRole:admin'], function () {
+        Route::inertia('/AdminDashboard', 'AdminDashboard')->name('AdminDashboard');
+    });
+    Route::group(['middleware' => 'checkRole:seller'], function () {
+        Route::inertia('/SellerDashboard', 'SellerDashboard')->name('SellerDashboard');
+    });
+    Route::group(['middleware' => 'checkRole:customer'], function () {
+        Route::inertia('/CustomerDashboard', 'CustomerDashboard')->name('CustomerDashboard');
+    });
+});
 
 require __DIR__ . '/auth.php';

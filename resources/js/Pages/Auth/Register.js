@@ -10,6 +10,7 @@ export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
+        role: '',
         password: '',
         password_confirmation: '',
     });
@@ -64,6 +65,22 @@ export default function Register() {
                         handleChange={onHandleChange}
                         required
                     />
+                </div>
+
+                <div className="mt-4">
+                <Label forInput="role" value="Role" />
+
+                <select
+                    name="role" /* make sure this and data.role is the same */
+                    id="role"
+                    className="block w-full mt-1 rounded-md"
+                    onChange={onHandleChange}
+                >
+                    <option value="select">Select</option>
+                    <option value="customer">Customer</option>
+                    <option value="seller">Seller</option>
+
+                </select>
                 </div>
 
                 <div className="mt-4">
